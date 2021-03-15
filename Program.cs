@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GarysGarage
 {
@@ -7,22 +8,53 @@ namespace GarysGarage
         static void Main(string[] args)
         {
             Zero fxs = new Zero();
-            Tesla modelS = new Tesla()
-            {
-                MainColor = "Burgundy"
-            };
-            Cessna mx410 = new Cessna();
-            Ram coalRoller = new Ram()
-            {
-                MainColor = "Neon Blue"
+            Zero fx = new Zero();
+            Tesla modelS = new Tesla();
+
+            List<IElectricVehicle> electricVehicles = new List<IElectricVehicle>(){
+                fx, fxs, modelS
             };
 
-            fxs.Drive();
-            modelS.Drive();
-            mx410.Drive();
-            coalRoller.Drive();
-            coalRoller.Turn("left");
-            coalRoller.Stop();
+            Console.WriteLine("Electric Vehicles");
+            foreach (IElectricVehicle ev in electricVehicles)
+            {
+                Console.WriteLine($"Battery charge: {ev.CurrentChargePercentage}");
+            }
+
+            foreach (IElectricVehicle ev in electricVehicles)
+            {
+                ev.ChargeBattery();
+            }
+
+            foreach (IElectricVehicle ev in electricVehicles)
+            {
+                Console.WriteLine($"Battery charge: {ev.CurrentChargePercentage}");
+            }
+
+            /***********************************************************/
+
+            Ram ram = new Ram();
+            Cessna cessna150 = new Cessna();
+
+            List<IGasVehicle> gasVehicles = new List<IGasVehicle>(){
+                ram, cessna150
+            };
+
+            Console.WriteLine("Gas Vehicles");
+            foreach (IGasVehicle gv in gasVehicles)
+            {
+                Console.WriteLine($"Gas tank level: {gv.CurrentTankPercentage}");
+            }
+
+            foreach (IGasVehicle gv in gasVehicles)
+            {
+                gv.RefuelTank();
+            }
+
+            foreach (IGasVehicle gv in gasVehicles)
+            {
+                Console.WriteLine($"Gas tank level: {gv.CurrentTankPercentage}");
+            }
         }
     }
 }
